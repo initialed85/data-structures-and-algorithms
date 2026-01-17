@@ -4,25 +4,30 @@ import (
 	"hash/maphash"
 )
 
-var hardHashBuckets = 1024
+/*
+- Hash Map (using builtins vs from scratch)
+  - Count occurrence of strings in array
+*/
 
-type Entry struct {
+var hardHashSetBuckets = 1024
+
+type HardHashSetEntry struct {
 	hash  uint64
 	value int
 }
 
 type HardHashSet struct {
 	hasher  *maphash.Hash
-	buckets [][]*Entry
+	buckets [][]*HardHashSetEntry
 }
 
 func NewHardHashSet() *HardHashSet {
 	hasher := &maphash.Hash{}
 	hasher.SetSeed(maphash.MakeSeed())
 
-	buckets := make([][]*Entry, hardHashBuckets)
+	buckets := make([][]*HardHashSetEntry, hardHashSetBuckets)
 	for i := range len(buckets) {
-		buckets[i] = make([]*Entry, 0)
+		buckets[i] = make([]*HardHashSetEntry, 0)
 	}
 
 	return &HardHashSet{
@@ -38,7 +43,7 @@ func (s *HardHashSet) getHash(value int) uint64 {
 }
 
 func (s *HardHashSet) getBucket(hash uint64) int {
-	return int(hash % uint64(hardHashBuckets))
+	return int(hash % uint64(hardHashSetBuckets))
 }
 
 func (s *HardHashSet) exists(bucket int, value int) bool {
@@ -66,7 +71,7 @@ func (s *HardHashSet) Add(value int) {
 
 	s.buckets[bucket] = append(
 		s.buckets[bucket],
-		&Entry{
+		&HardHashSetEntry{
 			hash:  hash,
 			value: value,
 		},

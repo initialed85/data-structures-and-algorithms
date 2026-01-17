@@ -1,7 +1,7 @@
 package pkg
 
 /*
-- Hash Set
+- Hash Set (using builtins)
   - Remove duplicates from array
 */
 

@@ -20,8 +20,10 @@ like:
   - Linear search to find element
   - Fixed length sliding window to find sequence of known length
   - Variable length sliding window to find longest sequence of repeating pattern
-- Hash Set
+- Hash Set (using builtins vs from scratch)
   - Remove duplicates from array
+- Hash Map (using builtins vs from scratch)
+  - Count occurrence of strings in array
 - Linked List
   - Reverse a singly-linked list
   - Rotate a singly-linked list

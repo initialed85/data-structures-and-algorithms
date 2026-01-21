@@ -1,7 +1,10 @@
 package pkg
 
 import (
-	"hash/maphash"
+	"bytes"
+	"encoding/gob"
+
+	"github.com/zeebo/xxh3"
 )
 
 /*
@@ -17,29 +20,28 @@ type HardHashSetEntry struct {
 }
 
 type HardHashSet struct {
-	hasher  *maphash.Hash
 	buckets [][]*HardHashSetEntry
 }
 
 func NewHardHashSet() *HardHashSet {
-	hasher := &maphash.Hash{}
-	hasher.SetSeed(maphash.MakeSeed())
-
 	buckets := make([][]*HardHashSetEntry, hardHashSetBuckets)
 	for i := range len(buckets) {
 		buckets[i] = make([]*HardHashSetEntry, 0)
 	}
 
 	return &HardHashSet{
-		hasher:  hasher,
 		buckets: buckets,
 	}
 }
 
 func (s *HardHashSet) getHash(value int) uint64 {
-	s.hasher.Reset()
-	maphash.WriteComparable(s.hasher, value)
-	return s.hasher.Sum64()
+	buf := bytes.NewBuffer(nil)
+	e := gob.NewEncoder(buf)
+	err := e.Encode(value)
+	if err != nil {
+		panic(err)
+	}
+	return xxh3.Hash(buf.Bytes())
 }
 
 func (s *HardHashSet) getBucket(hash uint64) int {

@@ -53,7 +53,7 @@ func (s *EasyHashMap) Items() []EasyItem {
 	return items
 }
 
-func EasyCountOccurrencesOfString(array [10]string) []EasyItem {
+func EasyCountOccurrencesOfString(array [1024]string) []EasyItem {
 	hashMap := NewEasyHashMap()
 
 	for _, x := range array {

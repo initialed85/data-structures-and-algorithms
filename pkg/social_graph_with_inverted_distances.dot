@@ -1,0 +1,10 @@
+digraph {
+Kali_0 -> Joey_1
+Joey_1 -> Molly_2
+Joey_1 -> Rudy_2
+Molly_2 -> Rudy_2
+Rudy_2 -> Nancy_3
+Rudy_2 -> Alan_3
+Nancy_3 -> Alan_3
+Alan_3 -> Kayla_4
+}

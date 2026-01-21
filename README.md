@@ -28,3 +28,23 @@ like:
   - Reverse a singly-linked list
   - Rotate a singly-linked list
   - Find the middle of linked list (two pointer technique)
+  - Create a doubly-linked list
+  - Create a stack from a doubly-linked list
+  - Create a queue from a doubly-linked list
+- Binary Tree
+  - Get deepest binary tree path (using a queue)
+  - Get broadest binary tree level
+  - Invert binary tree
+- Heap
+  - Create a min heap
+  - Create a max heap
+  - Create a min priority queue
+- Problems
+  1. Find longest substring without repeating characters (sliding window and hash set)
+  2. Design a LRU cache (hash map and doubly linked list)
+  3. Implement shortest path algorithm for a social network (graph traversal and Dijkstra's algorithm)
+
+## TODO
+
+- Rotate a binary tree?
+- Balance a binary tree?

@@ -2,12 +2,13 @@ package pkg
 
 import (
 	"fmt"
-	"hash/maphash"
+
+	"github.com/zeebo/xxh3"
 )
 
 /*
-- Hash Set (from scratch)
-  - Remove duplicates from array
+- Hash Map (using builtins vs from scratch)
+  - Count occurrence of strings in array
 */
 
 var hardHashMapBuckets = 1024
@@ -24,29 +25,22 @@ type HardEntry struct {
 }
 
 type HardHashMap struct {
-	hasher  *maphash.Hash
 	buckets [][]*HardEntry
 }
 
 func NewHardHashMap() *HardHashMap {
-	hasher := &maphash.Hash{}
-	hasher.SetSeed(maphash.MakeSeed())
-
 	buckets := make([][]*HardEntry, hardHashMapBuckets)
 	for i := range len(buckets) {
 		buckets[i] = make([]*HardEntry, 0)
 	}
 
 	return &HardHashMap{
-		hasher:  hasher,
 		buckets: buckets,
 	}
 }
 
 func (s *HardHashMap) getHash(value string) uint64 {
-	s.hasher.Reset()
-	maphash.WriteComparable(s.hasher, value)
-	return s.hasher.Sum64()
+	return xxh3.HashString(value)
 }
 
 func (s *HardHashMap) getBucket(hash uint64) int {
@@ -114,7 +108,7 @@ func (s *HardHashMap) Items() []HardItem {
 	return items
 }
 
-func HardCountOccurrencesOfString(array [10]string) []HardItem {
+func HardCountOccurrencesOfString(array [1024]string) []HardItem {
 	hashMap := NewHardHashMap()
 
 	for _, x := range array {

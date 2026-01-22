@@ -67,7 +67,7 @@ func TestShortestPathAlgorithmForSocialNetwork(t *testing.T) {
 
 	require.Equal(
 		t,
-		[]string{"Alan", "Rudy", "Joey", "Kali"},
+		[]string{"Kayla", "Alan", "Rudy", "Joey", "Kali"},
 		ShortestPathAlgorithmForSocialNetwork(
 			friendships,
 			person1,

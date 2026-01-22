@@ -6,6 +6,7 @@ import (
 	"math"
 	"os"
 	"os/exec"
+	"slices"
 )
 
 func FindLongestSubstringWithoutDuplicateCharacters(input string) string {
@@ -252,7 +253,9 @@ func ShortestPathAlgorithmForSocialNetwork(friendships map[string][]string, sour
 
 	var current = destination
 
-	shortestPath := make([]string, 0)
+	reverseShortestPath := make([]string, 0)
+
+	reverseShortestPath = append(reverseShortestPath, destinationName)
 
 	totalDistanceFromStart := 0
 
@@ -272,10 +275,13 @@ func ShortestPathAlgorithmForSocialNetwork(friendships map[string][]string, sour
 
 		current = personByName[currentName]
 
-		shortestPath = append(shortestPath, current.Name)
+		reverseShortestPath = append(reverseShortestPath, current.Name)
 	}
+
+	shortestPath := slices.Clone(reverseShortestPath)
+	slices.Reverse(shortestPath)
 
 	log.Printf("%d via %#+v", totalDistanceFromStart, shortestPath)
 
-	return shortestPath
+	return reverseShortestPath
 }

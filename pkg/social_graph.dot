@@ -1,10 +1,10 @@
 digraph {
-Rudy -> Nancy
-Rudy -> Alan
-Nancy -> Alan
-Alan -> Kayla
 Kali -> Joey
 Joey -> Molly
 Joey -> Rudy
 Molly -> Rudy
+Rudy -> Nancy
+Rudy -> Alan
+Nancy -> Alan
+Alan -> Kayla
 }

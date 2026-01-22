@@ -53,7 +53,7 @@ func (t *BinaryTree) Add(value int) {
 	}
 }
 
-func (t *BinaryTree) WriteToFile() error {
+func (t *BinaryTree) WriteToFile(baseFileName string) error {
 	data := "digraph {\n"
 
 	var n = t
@@ -84,12 +84,12 @@ func (t *BinaryTree) WriteToFile() error {
 
 	data += "}\n"
 
-	err := os.WriteFile("./binary_tree.dot", []byte(data), 0o777)
+	err := os.WriteFile(fmt.Sprintf("./%s.dot", baseFileName), []byte(data), 0o777)
 	if err != nil {
 		return err
 	}
 
-	err = exec.Command("dot", "-Tpng", "binary_tree.dot", "-o", "binary_tree.png").Run()
+	err = exec.Command("dot", "-Tpng", fmt.Sprintf("./%s.dot", baseFileName), "-o", fmt.Sprintf("./%s.png", baseFileName)).Run()
 	if err != nil {
 		return err
 	}
@@ -104,7 +104,7 @@ func GetDeepestBinaryTreePath(array [1024]int) []int {
 		t.Add(array[i])
 	}
 
-	err := t.WriteToFile()
+	err := t.WriteToFile("binary_tree_deepest")
 	if err != nil {
 		panic(err)
 	}
@@ -171,6 +171,11 @@ func GetBroadestBinaryTreeLevel(array [1024]int) []int {
 
 	for i := 1; i < 1024; i++ {
 		t.Add(array[i])
+	}
+
+	err := t.WriteToFile("binary_tree_broadest")
+	if err != nil {
+		panic(err)
 	}
 
 	var n = t
@@ -257,5 +262,5 @@ func InvertBinaryTree(array [1024]int) {
 		}
 	}
 
-	t.WriteToFile()
+	t.WriteToFile("binary_tree_inverted")
 }
